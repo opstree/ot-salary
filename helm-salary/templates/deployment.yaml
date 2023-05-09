@@ -33,7 +33,7 @@ spec:
       - name: {{ .Values.deployment.imagePullSecrets }}
       containers:
       - name: {{ .Values.name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: {{ .Values.image.url }}
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         ports:
         - containerPort: {{ .Values.deployment.containers.ports.containerPort }}

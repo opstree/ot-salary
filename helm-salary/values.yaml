@@ -21,9 +21,8 @@ service:
 
 # Deployment
 
-image:
-  repository: registry.buildpiper.in/emp-salary-dev2
-  tag: "2-20230509T0101-latest"
+image: 
+  url: registry.buildpiper.in/emp-salary-dev2:2-20230509T0101-latest
   imagePullPolicy: IfNotPresent
 
 deployment:
