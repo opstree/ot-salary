@@ -5,8 +5,6 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     app: {{ .Values.name }}
-  annotations:
-{{ toYaml .Values.deployment.annotations | indent 4 }}
 spec:
   replicas: {{ .Values.deployment.replicas }}
   strategy:
@@ -24,14 +22,12 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }}
-      annotations:
-{{ toYaml .Values.deployment.annotations | indent 8 }}
     spec:
       serviceAccountName: {{ .Values.name }}
       terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
-      imagePullSecrets:
+      imagePullSecrets: 
       - name: {{ .Values.deployment.imagePullSecrets }}
-      containers:
+      containers: 
       - name: {{ .Values.name }}
         image: {{ .Values.image.url }}
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
@@ -41,9 +37,4 @@ spec:
           name: {{ .Values.deployment.containers.ports.name }}
         resources:
 {{ toYaml .Values.deployment.containers.resources | indent 10 }}
-        env: {{ .Values.deployment.containers.env | toYaml | nindent 8 }}
-        volumeMounts: {{ toYaml .Values.deployment.containers.volumeMounts | nindent 8 }}
-      nodeSelector: {{ toYaml .Values.deployment.nodeSelector | nindent 6 }}
-      affinity: {{ toYaml .Values.deployment.affinity | nindent 6 }}
-      tolerations: {{ toYaml .Values.deployment.tolerations | nindent 6 }}
-      volumes: {{ toYaml .Values.deployment.volumes | nindent 6 }}
+  
