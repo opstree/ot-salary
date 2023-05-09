@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.name }}
+  annotations:
+{{ toYaml .Values.deployment.annotations | indent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  strategy:
+    rollingUpdate:
+      maxSurge: {{ .Values.deployment.rollingUpdate.maxSurge }}
+      maxUnavailable: {{ .Values.deployment.rollingUpdate.maxUnavailable }}
+    type: {{ .Values.deployment.strategyType }}
+  minReadySeconds: {{ .Values.deployment.minReadySeconds }}
+  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
+  progressDeadlineSeconds: {{ .Values.deployment.progressDeadlineSeconds }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+      annotations:
+{{ toYaml .Values.deployment.annotations | indent 8 }}
+    spec:
+      serviceAccountName: {{ .Values.name }}
+      terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
+      imagePullSecrets:
+      - name: {{ .Values.deployment.imagePullSecrets }}
+      containers:
+      - name: {{ .Values.name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+        ports:
+        - containerPort: {{ .Values.deployment.containers.ports.containerPort }}
+          protocol: {{ .Values.deployment.containers.ports.protocol }}
+          name: {{ .Values.deployment.containers.ports.name }}
+        resources:
+{{ toYaml .Values.deployment.containers.resources | indent 10 }}
+        env: {{ .Values.deployment.containers.env | toYaml | nindent 8 }}
+        volumeMounts: {{ toYaml .Values.deployment.containers.volumeMounts | nindent 8 }}
+      nodeSelector: {{ toYaml .Values.deployment.nodeSelector | nindent 6 }}
+      affinity: {{ toYaml .Values.deployment.affinity | nindent 6 }}
+      tolerations: {{ toYaml .Values.deployment.tolerations | nindent 6 }}
+      volumes: {{ toYaml .Values.deployment.volumes | nindent 6 }}
