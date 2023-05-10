@@ -11,10 +11,10 @@ spec:
     rollingUpdate:
       maxSurge: {{ .Values.deployment.rollingUpdate.maxSurge }}
       maxUnavailable: {{ .Values.deployment.rollingUpdate.maxUnavailable }}
-    type: {{ .Values.deployment.strategyType }}
-  minReadySeconds: {{ .Values.deployment.minReadySeconds }}
-  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
-  progressDeadlineSeconds: {{ .Values.deployment.progressDeadlineSeconds }}
+    type: RollingUpdate
+  minReadySeconds: 0
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
   selector:
     matchLabels:
       app: {{ .Values.name }}
@@ -24,10 +24,10 @@ spec:
         app: {{ .Values.name }}
     spec:
       serviceAccountName: {{ .Values.name }}
-      terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
-      containers: 
+      terminationGracePeriodSeconds: 30
+      containers:
       - name: {{ .Values.name }}
-        image: {{ .Values.image.url }}
+        image: {{ .Values.image.url}}
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         ports:
         - containerPort: {{ .Values.deployment.containers.ports.containerPort }}
@@ -35,4 +35,3 @@ spec:
           name: {{ .Values.deployment.containers.ports.name }}
         resources:
 {{ toYaml .Values.deployment.containers.resources | indent 10 }}
-  
