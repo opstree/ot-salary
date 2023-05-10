@@ -25,11 +25,11 @@ spec:
     spec:
       serviceAccountName: {{ .Values.name }}
       terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
-      imagePullSecrets: 
-      - name: {{ .Values.deployment.imagePullSecrets }}
-      containers: 
+      imagePullSecrets:
+      - name: {{ .Values.image.imagePullSecrets}}
+      containers:
       - name: {{ .Values.name }}
-        image: {{ .Values.image.url }}
+        image: {{ .Values.image.url}}
         imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         ports:
         - containerPort: {{ .Values.deployment.containers.ports.containerPort }}
@@ -37,4 +37,3 @@ spec:
           name: {{ .Values.deployment.containers.ports.name }}
         resources:
 {{ toYaml .Values.deployment.containers.resources | indent 10 }}
-  
