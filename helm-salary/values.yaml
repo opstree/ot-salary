@@ -1,4 +1,4 @@
-name: emp-salary-deployment
+name: ot-emp-svc-deployment
 namespace: demo-dev2
 
 # Service Account
@@ -10,7 +10,7 @@ serviceAccount:
 # Service 
 
 service:
-  name: emp-salary-service
+  name: ot-emp-salary-service
   namespace: demo-dev2
   type: ClusterIP
   ports:
