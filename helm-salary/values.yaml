@@ -1,10 +1,10 @@
-name: ot-emp-svc-deployment
+name: emp-svc-deployment
 namespace: demo-dev2
 
 # Service 
 
 service:
-  name: ot-emp-salary-service
+  name: emp-salary-service
   namespace: demo-dev2
   type: ClusterIP
   ports:
