@@ -11,10 +11,10 @@ spec:
     rollingUpdate:
       maxSurge: {{ .Values.deployment.rollingUpdate.maxSurge }}
       maxUnavailable: {{ .Values.deployment.rollingUpdate.maxUnavailable }}
-    type: RollingUpdate
-  minReadySeconds: 0
-  revisionHistoryLimit: 10
-  progressDeadlineSeconds: 600
+    type: {{ .Values.deployment.strategyType }}
+  minReadySeconds: {{ .Values.deployment.minReadySeconds }}
+  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
+  progressDeadlineSeconds: {{ .Values.deployment.progressDeadlineSeconds }}
   selector:
     matchLabels:
       app: {{ .Values.name }}
@@ -24,7 +24,9 @@ spec:
         app: {{ .Values.name }}
     spec:
       serviceAccountName: {{ .Values.name }}
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
+      imagePullSecrets:
+      - name: {{ .Values.image.imagePullSecrets}}
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.image.url}}

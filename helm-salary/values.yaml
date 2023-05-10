@@ -1,12 +1,6 @@
 name: ot-emp-svc-deployment
 namespace: demo-dev2
 
-# Service Account
-
-serviceAccount:
-  annotations:
-    {}
-
 # Service 
 
 service:
@@ -24,6 +18,7 @@ service:
 image: 
   url: registry.buildpiper.in/emp-salary-dev2:2-20230509T0101-latest
   imagePullPolicy: IfNotPresent
+  imagePullSecrets: nexus-regcred
 
 deployment:
   replicas: 1
