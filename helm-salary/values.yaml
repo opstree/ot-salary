@@ -35,7 +35,6 @@ deployment:
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
   terminationGracePeriodSeconds: 30
-  imagePullSecrets: nexus-regcred
   containers:
       ports:
         containerPort: 8080
