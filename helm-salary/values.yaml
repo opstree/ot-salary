@@ -1,4 +1,4 @@
-name: emp-svc-deployment
+name: emp-salary-deployment
 namespace: demo-dev2
 
 # Service 
