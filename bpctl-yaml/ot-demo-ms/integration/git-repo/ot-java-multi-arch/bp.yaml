@@ -1,0 +1,8 @@
+---
+version: api/v1
+kind: BPGitRepo
+metadata:
+  name: ot-java-multi-arch
+spec:
+   git_provider: github
+   url: https://github.com/deepakgupta97/java-multi-arch.git

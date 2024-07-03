@@ -1,0 +1,15 @@
+---
+version: api/v1
+kind: BPServiceCI
+metadata:
+  name: salary-ci
+  application: ot-demo-ms
+  environment_master: uat
+  service: salary
+spec:
+  git_repo: ot-micro-salary 
+  image_name: salary/uat/uat-main
+  dockerfile_path: Dockerfile:.
+  branch_name: main
+  language: JAVA
+  application_env: uat-main

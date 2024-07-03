@@ -1,0 +1,15 @@
+---
+version: api/v1
+kind: BPServiceEnv
+metadata:
+  name: app2-dev-main-env
+  service: app2
+  application: ot-demo-ms
+spec:
+  application_env: dev-main
+  image_name: dev/dev-main/app2
+  manual_build: true
+  manual_deploy: true
+  application_job_template: devsecops-python-ci-v2
+  env_role_access: []
+  environment_master: dev

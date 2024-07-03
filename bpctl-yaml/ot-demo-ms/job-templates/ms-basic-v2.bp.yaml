@@ -1,0 +1,136 @@
+---
+version: api/v1
+kind: BPApplicationJobTemplate
+metadata:
+    name: ms-basic-v2 
+spec:
+    name: ms-basic-v2 
+    version: v2
+    application: ot-demo-ms
+    default: true
+    description: A template for basic ms ci 
+    user: opstree@opstree.com
+    job_template:
+      jobs:
+      - steps:
+        - order: 0
+          step_code: CLONING_REPOSITORY
+          step_name: Clone Repository
+          is_conditional_step: false
+          environment_variables:
+        - order: 1
+          step_code: PRE_HOOKS
+          step_name: pre hook
+          is_conditional_step: false
+          environment_variables:
+        - order: 2
+          step_code: Cred Scanner
+          step_name: Gitleaks
+          customVariables: {}
+          is_conditional_step: false
+          environment_variables:
+            WORKSPACE: "/bp/workspace"
+            FORMAT_ARG: json
+            OUTPUT_ARG: gitleaks.json
+            SLEEP_DURATION: 0s
+            VALIDATION_FAILURE_ACTION: WARNING
+        - order: 3
+          step_code: BUILD_DOCKER_IMAGE
+          step_name: build_image
+          is_conditional_step: false
+          environment_variables:
+        - order: 4
+          step_code: PUSH_DOCKER_IMAGE
+          step_name: push_image
+          is_conditional_step: false
+          environment_variables:
+        - order: 5
+          step_code: POST_HOOKS
+          step_name: post hook
+          is_conditional_step: false
+          environment_variables:
+        - order: 7
+          step_code: IMAGE_CLEANUP
+          step_name: Image Cleanup
+          customVariables: {}
+          is_conditional_step: false
+          environment_variables:
+            WORKSPACE: "/bp/workspace"
+            SLEEP_DURATION: 0s
+            VALIDATION_FAILURE_ACTION: WARNING
+        - order: 8
+          step_code: WORKSPACE_PUBLISHER
+          step_name: Workspace Publisher
+          customVariables: {}
+          is_conditional_step: false
+          environment_variables:
+            WORKSPACE: "/bp/workspace"
+            EXECUTION_DIR: "/bp/execution_dir"
+            SLEEP_DURATION: 5s
+            FOLDER_TO_BE_COPIED: reports/gitleaks.json
+        job_code: build_job
+        job_name: Build Job
+      - steps:
+        - order: 0
+          step_code: DEPLOYMENT_MANIFEST_CREATOR
+          step_name: Deployment Manifest Creator
+          customVariables: {}
+          is_conditional_step: false
+          environment_variables:
+        - order: 1
+          step_code: K8S_DEPLOYMENT_MANIFEST_APPLY
+          step_name: K8s deployment manifest apply
+          customVariables: {}
+          is_conditional_step: false
+          environment_variables:
+        job_code: deploy_job
+        job_name: deploy_Job
+      - steps:
+        - step_code: K8S_MANIFEST_APPLY
+          step_name: deploy_configmaps
+          is_conditional_step: false
+          environment_variables:
+        job_code: deploy_configmaps_job
+        job_name: deploy_configmaps_Job
+      - steps:
+        - step_code: K8S_MANIFEST_APPLY
+          step_name: deploy_secrets
+          is_conditional_step: false
+          environment_variables:
+        job_code: deploy_secrets_job
+        job_name: deploy_secrets_Job
+      - steps:
+        - step_code: DOCKER_IMAGE_PROMOTE
+          step_name: docker_image_promote
+          is_conditional_step: false
+          environment_variables:
+        job_code: promote_job
+        job_name: promote Job
+      - steps:
+        - step_code: ROLLBACK
+          step_name: rollback
+          is_conditional_step: false
+          environment_variables:
+        job_code: rollback_job
+        job_name: rollback_Job
+      - steps:
+        - order: 0
+          step_code: JIRA_INTEGRATION
+          step_name: jira integration
+          customVariables: {}
+          is_conditional_step: false
+          environment_variables:
+            EMAIL: siddharth.gupta@opstree.com
+            AUTH_TOKEN: ATATT3xFfGF05rNznFdEP1fWrOTsBX5N3gV2EFo5at8937lEnxmV5Pn2A0iqVfPwt8eFPSPMnS4-g0_UT4jhpZEfjb8Y9QOiY_7jffLq8uN2yL88lgeJPhyK91j23ZGW6aPU60bog2cPOD6NDZmdPt-FwzScjMZ7nUmWaFf9FfDciNDRkhO2vOE=02CA4A9E
+            SERVER_URL: https://buildpiper.atlassian.net/
+            PROJECT_NAME: Buildpiper_Demo_Sandbox
+        job_code: jira_integration_job
+        job_name: jira_integration_Job
+      - steps:
+        - step_code: INTEGRATION_TEST
+          step_name: integration_testing
+          is_conditional_step: false
+          environment_variables:
+        job_code: integration_job
+        job_name: integration_Job
+      default: true

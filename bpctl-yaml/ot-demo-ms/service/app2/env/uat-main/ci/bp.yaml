@@ -1,0 +1,15 @@
+---
+version: api/v1
+kind: BPServiceCI
+metadata:
+  name: app2-ci
+  application: ot-demo-ms
+  environment_master: uat
+  service: app2
+spec:
+  git_repo: ot-micro-salary 
+  image_name: app2/uat/uat-main
+  dockerfile_path: Dockerfile:.
+  branch_name: main
+  language: JAVA
+  application_env: uat-main

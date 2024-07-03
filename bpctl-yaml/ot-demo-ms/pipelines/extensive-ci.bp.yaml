@@ -1,0 +1,44 @@
+---
+version: api/v1
+kind: BPPipeline
+metadata:
+  name: Extensive CI Pipeline
+spec:
+  tags:
+    - dev
+    - build
+  application: "ot-demo-ms"
+  retention_execution_count: 10
+  cron_regex:
+  default_run: false
+  pipeline_context_parameters:
+  trigger_type: manual
+  jira_references: []
+  stages:
+    - questionnaires: []
+      name: Build 
+      approval: false
+      send_mail: true
+      approve_user: []
+      order: 1
+      stage_run_condition: {}
+      jira_issue_reference:
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        all_templates: []
+        environment_variables: {}
+        tag: latest
+        task_type: BUILD
+        application_job_template: "devsecops-python-ci-v2"
+        services:
+        - salary
+        application_env: qa-main
+        

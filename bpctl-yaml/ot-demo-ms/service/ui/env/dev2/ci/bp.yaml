@@ -1,0 +1,15 @@
+---
+version: api/v1
+kind: BPServiceCI
+metadata:
+  name: ui-ci
+  application: ot-demo-ms
+  environment_master: dev
+  service: ui
+spec:
+  git_repo: OT-Microservice 
+  image_name: ui/dev/dev2
+  dockerfile_path: Dockerfile:frontend
+  branch_name: master
+  language: JAVA
+  application_env: dev2

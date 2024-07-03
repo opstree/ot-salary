@@ -1,0 +1,9 @@
+---
+version: api/v1
+kind: BPService
+metadata:
+  name: salary
+spec:
+  build_strategy: EVERY
+  external_name: salary-app
+  application: ot-demo-ms

@@ -1,0 +1,15 @@
+---
+version: api/v1
+kind: BPServiceEnv
+metadata:
+  name: app2-qa-main-env
+  service: app2
+  application: ot-demo-ms
+spec:
+  application_env: qa-main
+  image_name: qa/qa-main/app2
+  manual_build: true
+  manual_deploy: true
+  application_job_template: ms-basic-v2
+  env_role_access: []
+  environment_master: qa

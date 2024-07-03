@@ -1,0 +1,49 @@
+---
+version: api/v1
+kind: BPServiceCD
+metadata:
+  name: app2-cd
+  application: ot-demo-ms
+  environment_master: qa
+  service: app2
+spec:
+  application_env: qa-main
+  service_name: app2
+  image_name: app2/qa/qa-main
+  deployment_name: app2-qa-main-dep
+  desired_replication: 1
+  requests_memory_quota: 500
+  requests_cpu_quota: 500
+  limits_cpu_quota: 500
+  limits_memory_quota: 500
+  env_cd_configmap: []
+  env_cd_secret:  [ ]
+  env_cd_pvc_variable: [ ]
+  entrypoint:
+  env_cd_deploy_variable: [ ]
+  env_cd_deployment_strategy:
+    max_surge: 100%
+    max_unavailable: 5%
+    minimum_ready: 0
+    progress_deadline: 600
+    termination_grace_period: 30
+    revision_history_limit: 10
+    release_template:
+  labels: [ ]
+  annotations: [ ]
+  env_cd_hook: [ ]
+  env_cd_access_detail:
+    - name: app2-svc
+      target_port: 8080
+      protocol: TCP
+      port: 8080
+      access_level: PRIVATE
+      expose_path:
+  # env_cd_readiness_probe:
+  #   path: /health
+  #   port: 8081
+  #   initial_delay_seconds: 5
+  #   period_seconds: 5
+  #   timeout_seconds: 20
+  #   failure_threshold: 100
+  #   probe_type: HTTP

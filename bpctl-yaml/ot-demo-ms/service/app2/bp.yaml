@@ -1,0 +1,9 @@
+---
+version: api/v1
+kind: BPService
+metadata:
+  name: app2
+spec:
+  build_strategy: EVERY
+  external_name: app2-app
+  application: ot-demo-ms

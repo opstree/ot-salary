@@ -1,0 +1,518 @@
+---
+version: api/v1
+kind: BPPipeline
+metadata:
+  name: CD Pipeline
+spec:
+  tags:
+    - dev
+    - build
+  application: "ot-demo-ms"
+  retention_execution_count: 10
+  cron_regex:
+  default_run: false
+  pipeline_context_parameters:
+  trigger_type: manual
+  jira_references: []
+  stages:
+    - questionnaires: []
+      name: Jira Ticket Create
+      approval: false
+      send_mail: true
+      approve_user: []
+      order: 1
+      stage_run_condition: {}
+      jira_issue_reference:
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: create
+        summary: Initiating production release for services
+        description:
+        issuetype: task
+        priority: medium
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status:
+        comment:
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type: JIRA_INTEGRATION    
+        application_env:
+        artifact_source: ''
+    - questionnaires:
+      - question: Local testing done ?
+        type: select
+        possible_value: yes,no
+        default_value: "yes"
+        jira_update: true
+        job_template:
+        mandatory: false
+        jira_reference: stage.Jira Ticket Create.job.job_1.jira_id.key
+        field_name: Local testing done
+        field_type: ''
+      - question: Is Backward compatibility script reviewed ?
+        type: select
+        possible_value: yes,no
+        default_value: "yes"
+        jira_update: true
+        job_template:
+        mandatory: false
+        jira_reference: stage.Jira Ticket Create.job.job_1.jira_id.key
+        field_name: Is Backward compatibility script reviewed
+        field_type: ''
+      - question: Have any security vulnerabilities been identified and addressed ?
+        type: select
+        possible_value: yes,no
+        default_value: "yes"
+        jira_update: true
+        job_template:
+        mandatory: false
+        jira_reference: stage.Jira Ticket Create.job.job_1.jira_id.key
+        field_name: Have any security vulnerabilities been identified and addressed ?
+        field_type: ''
+      - question: Have all the necessary documentation and comments been added to the code ?
+        type: select
+        possible_value: yes,no
+        default_value: "yes"
+        jira_update: true
+        job_template:
+        mandatory: false
+        jira_reference: stage.Jira Ticket Create.job.job_1.jira_id.key
+        field_name: Have all the necessary documentation and comments been added to the code ?
+        field_type: ''
+      name: Go No Go Approval Question
+      approval: true
+      send_mail: false
+      approve_user:
+      - name: Super Admin
+        email: opstree@opstree.com
+        role_master: Project_Admin-ot-demo-ms
+      - email: priyanshi.chauhan@opstree.com
+        name: Priyanshi Chauhan
+        role_master: Project_Admin-ot-demo-ms     
+      - email: sandeep@opstree.com
+        name: Sandeep Rawat
+        role_master: Project_Admin-ot-demo-ms   
+
+      order: 2
+      stage_run_condition: {}
+      jira_issue_reference:
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: add_comment
+        summary:
+        description:
+        issuetype:
+        priority:
+        account_id:
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status:
+        comment: approved
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type: JIRA_INTEGRATION    
+        application_env:
+        artifact_source: ''
+    - questionnaires: []
+      name: Dev Lead Sign Off
+      approval: true
+      send_mail: false
+      approve_user:
+      - name: Super Admin
+        email: opstree@opstree.com
+        role_master: Project_Admin-ot-demo-ms
+      - email: priyanshi.chauhan@opstree.com
+        name: Priyanshi Chauhan
+        role_master: Project_Admin-ot-demo-ms     
+      - email: sandeep@opstree.com
+        name: Sandeep Rawat
+        role_master: Project_Admin-ot-demo-ms   
+
+      order: 3
+      stage_run_condition: {}
+      jira_issue_reference: stage.Jira Ticket Create.job.job_1.jira_id.key
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: add_comment
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status:
+        comment: dev lead sign off received
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type: JIRA_INTEGRATION       
+        application_env:
+        artifact_source: ''
+      - name: job_2
+        order: 2
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: status_update
+        summary:
+        description:
+        issuetype:
+        priority:
+        account_id:
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status: Dev Signoff
+        comment:
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type: JIRA_INTEGRATION      
+        application_env:
+        artifact_source: ''
+    - questionnaires: []
+      name: QA Build & Deploy
+      approval: false
+      send_mail: true
+      approve_user: []
+      order: 4
+      stage_run_condition: {}
+      jira_issue_reference:
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        all_templates: []
+        environment_variables: {}
+        tag: generated
+        task_type: Build
+        application_job_template: "ms-basic-v2"
+        services:
+        - ui
+        - salary
+        - app2
+        application_env: qa-main
+      - name: job_2
+        order: 2
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        deployment_status_check: false
+        deployment_type: ROLLING_UPDATE
+        tag: generated
+        validate: false
+        application_job_template: "ms-basic-v2"
+        task_type: DEPLOY
+        services:
+        - ui
+        - salary
+        application_env: qa-main
+        artifact_source: GENERATED
+    - questionnaires: []
+      name: QA Lead Sign Off
+      approval: true
+      send_mail: false
+      approve_user:
+      - name: Super Admin
+        email: opstree@opstree.com
+        role_master: Project_Admin-ot-demo-ms
+      - email: priyanshi.chauhan@opstree.com
+        name: Priyanshi Chauhan
+        role_master: Project_Admin-ot-demo-ms     
+      - email: sandeep@opstree.com
+        name: Sandeep Rawat
+        role_master: Project_Admin-ot-demo-ms   
+ 
+      order: 5
+      stage_run_condition: {}
+      jira_issue_reference: stage.Jira Ticket Create.job.job_1.jira_id.key
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: add_comment
+        summary:
+        description:
+        issuetype:
+        priority:
+        account_id:
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status:
+        comment: QA lead sign off received
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type : JIRA_INTEGRATION    
+        application_env:
+        artifact_source: ''
+      - name: job_2
+        order: 2
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: status_update
+        summary:
+        description:
+        issuetype:
+        priority:
+        account_id:
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status: QA Signoff
+        comment:
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type: JIRA_INTEGRATION
+        application_env: 
+        artifact_source: ''
+    - questionnaires: []
+      name: UAT Promte & Deploy
+      approval: false
+      send_mail: true
+      approve_user: []
+      order: 6
+      stage_run_condition: {}
+      jira_issue_reference:
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        all_templates: []
+        environment_variables: {}
+        tag: generated
+        task_type: PROMOTE
+        application_job_template: "ms-basic-v2"
+        services:
+        - ui
+        - salary
+        application_env: qa-main
+        target_application_env: uat-main
+      - name: job_2
+        order: 2
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        deployment_status_check: false
+        deployment_type: ROLLING_UPDATE
+        tag: generated
+        validate: false
+        application_job_template: "ms-basic-v2"
+        task_type: DEPLOY
+        services:
+        - ui
+        - salary
+        application_env: uat-main
+        artifact_source: GENERATED
+    - questionnaires: []
+      name: Business Lead Sign Off
+      approval: true
+      send_mail: false
+      approve_user:
+      - name: Super Admin
+        email: opstree@opstree.com
+        role_master: Project_Admin-ot-demo-ms
+      - email: priyanshi.chauhan@opstree.com
+        name: Priyanshi Chauhan
+        role_master: Project_Admin-ot-demo-ms     
+      - email: sandeep@opstree.com
+        name: Sandeep Rawat
+        role_master: Project_Admin-ot-demo-ms   
+ 
+      order: 7
+      stage_run_condition: {}
+      jira_issue_reference: stage.Jira Ticket Create.job.job_1.jira_id.key
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: add_comment
+        summary:
+        description:
+        issuetype:
+        priority:
+        account_id:
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status:
+        comment: Business lead sign off received
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type : JIRA_INTEGRATION    
+        application_env:
+        artifact_source: ''
+      - name: job_2
+        order: 2
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: status_update
+        summary:
+        description:
+        issuetype:
+        priority:
+        account_id:
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status: Uat Signoff
+        comment:
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type: JIRA_INTEGRATION
+        application_env: 
+        artifact_source: ''
+    - questionnaires: []
+      name: Prod Promte & Deploy
+      approval: false
+      send_mail: true
+      approve_user: []
+      order: 8
+      stage_run_condition: {}
+      jira_issue_reference:
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        all_templates: []
+        environment_variables: {}
+        tag: generated
+        task_type: PROMOTE
+        application_job_template: "ms-basic-v2"
+        services:
+        - ui
+        - salary
+        application_env: uat-main
+        target_application_env: prod-main
+      - name: job_2
+        order: 2
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        deployment_status_check: false
+        deployment_type: ROLLING_UPDATE
+        tag: generated
+        validate: false
+        application_job_template: "ms-basic-v2"
+        task_type: DEPLOY
+        services:
+        - ui
+        - salary
+        application_env: prod-main
+        artifact_source: GENERATED
+    - questionnaires: []
+      name: Update Jira Ticket
+      approval: false
+      send_mail: true
+      approve_user: []
+      order: 9
+      stage_run_condition: {}
+      jira_issue_reference:
+      continue_on_disapproval: false
+      tasks:
+      - name: job_1
+        order: 1
+        job_code:
+        on_failure_exit: true
+        on_success_exit: false
+        skip_task: false
+        mark_success_upon_skip: false
+        task_run_condition:
+        environment_variables: {}
+        operation: status_update
+        summary:
+        description:
+        issuetype:
+        priority:
+        account_id:
+        issue_key: stage.Jira Ticket Create.job.job_1.jira_id.key
+        status: Deployment Done
+        comment:
+        epic_name:
+        issue_name:
+        additional_field_key_value: {}
+        application_job_template: "ms-basic-v2"
+        task_type: JIRA_INTEGRATION
+        application_env:
+        artifact_source: ''
