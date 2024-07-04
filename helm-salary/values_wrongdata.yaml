@@ -1,0 +1,44 @@
+name: auto-service-helm
+namespace: dev
+
+# Service 
+
+service:
+  name: auto-service-helm
+  namespace: dev
+  type: ClusterIP
+  ports:
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: ot-emp-salary
+
+# Deployment
+
+image: 
+  url: registry.buildpiper.in/auto-service-helm/qa/qacommunity:latest
+  imagePullPolicy: IfNotPresent
+  imagePullSecrets: nexus-regcred
+
+deployment:
+  replicas: 1
+  rollingUpdate:
+    maxSurge: "100%"
+    maxUnavailable: "5%"
+  strategyType: RollingUpdate
+  minReadySeconds: 0
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+  terminationGracePeriodSeconds: 30
+  containers:
+      ports:
+        containerPort: 8080
+        protocol: TCP
+        name: auto-service-helm
+      resources:
+        limits:
+          cpu: 300m
+          memory: 300Mi
+        requests:
+          cpu: 300m
+          memory: 300Mi
