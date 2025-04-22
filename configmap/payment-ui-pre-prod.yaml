@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment-ui-pre-prod
+data:
+  config.json: |
+    {
+      "env": "pre-prod",
+      "debug": true,
+      "timeout": 30
+    }
