@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: my-config-from-file
+  name: payment-gateway-main
 data:
   config.json: |
     {
