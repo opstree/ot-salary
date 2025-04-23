@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: order-pre-prod
+  name: orders-main
 data:
   config.json: |
     {
