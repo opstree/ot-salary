@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jpmc-salary-dev
+data:
+  config.json: |
+    {
+      "env": "dev",
+      "debug": true,
+      "timeout": 30
+    }
