@@ -187,10 +187,10 @@ spec:
           customVariables: {}
           is_conditional_step: false
           environment_variables:
-            EMAIL: siddharth.gupta@opstree.com
-            AUTH_TOKEN: ATATT3xFfGF05rNznFdEP1fWrOTsBX5N3gV2EFo5at8937lEnxmV5Pn2A0iqVfPwt8eFPSPMnS4-g0_UT4jhpZEfjb8Y9QOiY_7jffLq8uN2yL88lgeJPhyK91j23ZGW6aPU60bog2cPOD6NDZmdPt-FwzScjMZ7nUmWaFf9FfDciNDRkhO2vOE=02CA4A9E
-            SERVER_URL: https://buildpiper.atlassian.net/
-            PROJECT_NAME: Buildpiper_Demo_Sandbox
+            EMAIL: opstree@opstree.com
+            AUTH_TOKEN: xyz
+            SERVER_URL: https://example.com
+            PROJECT_NAME: Sandbox
         job_code: jira_integration_job
         job_name: jira_integration_Job
       - steps:
