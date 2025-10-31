@@ -8,6 +8,7 @@ RUN mvn clean package
 FROM alpine:latest
 MAINTAINER Opstree Solutions
 USER root
+COPY xyz.sh /app
 RUN apk update && \
     apk add openjdk17
 
