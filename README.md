@@ -2,7 +2,7 @@
 
 Salary is also a java based application which creates and manages employedde's salary information.
 
-## Database
+## Database.
 
 - [Elasticsearch]](../elasticsearch) => Salary application stores information in easticsearch
 
