@@ -5,7 +5,7 @@ COPY pom.xml /java/
 COPY src /java/src/
 RUN mvn clean package
 
-FROM 192.168.10.135/salarydev/alpine:1.0
+FROM harbor.buildpiper.in/salarydev/alpine:1.0
 MAINTAINER Opstree Solutions
 USER root
 RUN apk update && \
