@@ -1,6 +1,7 @@
 FROM maven:3.8.4-openjdk-17-slim as builder
 MAINTAINER Opstree Solutions
 WORKDIR /java/
+ENVM test tt
 COPY pom.xml /java/
 COPY src /java/src/
 RUN mvn clean package
