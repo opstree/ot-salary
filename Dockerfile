@@ -6,7 +6,7 @@ COPY src /java/src/
 RUN mvn clean package
 # RUN MAVEN_OPTS="-Xmx64m" mvn clean package
 
-FROM registry.buildpiper.in/salary/dev/dev:alpine
+FROM registry.buildpiper.in/salary/dev/devq:alpine
 MAINTAINER Opstree Solutions
 USER root
 RUN apk update && \
