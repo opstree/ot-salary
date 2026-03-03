@@ -25,4 +25,34 @@ The available endpoints for this application are:---
 | SPRING_ELASTICSEARCH_REST_USERNAME  | Username for elasticsearch database              |
 | SPRING_ELASTICSEARCH_REST_PASSWORD  | Password for elasticsearch database              |
 
-## GitOps
+## Gitleakes
+
+```
+AWS_ACCESS_KEY_ID=ASIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+password=root
+https://bitbucket.org/site/oauth2/authorize?client_id=xxxxxxx&response_type=code
+database.url=jdbc:mysql://mysql.okts.tk:3306/employeedb
+database.user=root
+database.password=password
+```
+
+
+# Dummy API Key (GitLeaks Test)
+aws_secret_access_key = "AKIAIOSFODNN7EXAMPLE"
+
+# Dummy Password in Env Format
+DB_PASSWORD=SuperSecret123!
+
+# Dummy Private Key
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEA7X3+zYgxA0fA19yK8RT4Z7wGdpO1A4EJ1vVvZqRlDlB9NsEx
+...
+-----END RSA PRIVATE KEY-----
+
+# Dummy Slack Token
+xoxb-123456789012-1234567890123-ABCDEFGHIJKLMNO
+
+# Dummy JWT Token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
