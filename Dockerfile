@@ -4,7 +4,7 @@ WORKDIR /java/
 COPY pom.xml /java/
 COPY src /java/src/
 # RUN mvn clean package
-RUN MAVEN_OPTS="-Xmx64m" mvn clean package
+RUN MAVEN_OPTS="-Xmx3g" mvn clean package
 
 FROM alpine:latest
 MAINTAINER Opstree Solutions
