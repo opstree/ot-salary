@@ -31,10 +31,10 @@ CREATE TABLE test155555 (
     name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE new_table (
+CREATE TABLE new123 (
     name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE new_table2 (
+CREATE TABLE new_32 (
     name VARCHAR(255) NOT NULL
 );
