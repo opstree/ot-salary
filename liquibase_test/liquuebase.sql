@@ -27,6 +27,7 @@ CREATE TABLE test3 (
     name VARCHAR(255) NOT NULL
 );
 
+--changeset nvoxland:22
 CREATE TABLE test155555 (
     name VARCHAR(255) NOT NULL
 );
