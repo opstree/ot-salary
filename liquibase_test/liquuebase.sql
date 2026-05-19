@@ -30,3 +30,7 @@ CREATE TABLE test3 (
 CREATE TABLE test155555 (
     name VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE new_table (
+    name VARCHAR(255) NOT NULL
+);
