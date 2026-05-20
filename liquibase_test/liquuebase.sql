@@ -39,3 +39,10 @@ CREATE TABLE seee123 (
 CREATE TABLE rrr32 (
     name VARCHAR(255) NOT NULL
 );
+
+--changeset buildpiper:23
+
+CREATE TABLE testtable (
+    name VARCHAR(255) NOT NULL
+);
+
