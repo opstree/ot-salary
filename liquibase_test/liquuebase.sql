@@ -46,3 +46,12 @@ CREATE TABLE testtable (
     name VARCHAR(255) NOT NULL
 );
 
+
+CREATE TABLE test1table (
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE test2table (
+    name VARCHAR(255) NOT NULL
+);
+
