@@ -56,3 +56,12 @@ CREATE TABLE test2table (
     name VARCHAR(255) NOT NULL
 );
 
+--changeset priyanshi:25
+
+CREATE TABLE test098table (
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE test765table (
+    name VARCHAR(255) NOT NULL
+);
