@@ -46,6 +46,7 @@ CREATE TABLE testtable (
     name VARCHAR(255) NOT NULL
 );
 
+--changeset priyanshi:24
 
 CREATE TABLE test1table (
     name VARCHAR(255) NOT NULL
