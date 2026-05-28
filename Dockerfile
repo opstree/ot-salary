@@ -1,4 +1,6 @@
-FROM maven:3.8.4-openjdk-17-slim as builder
+FROM ${IMAGE_NAME}:${IMAGE_TAG} as builder
+ARG IMAGE_NAME="maven"
+ARG IMAGE_TAG="3.8.4-openjdk-17-slim"
 MAINTAINER Opstree Solutions
 WORKDIR /java/
 COPY pom.xml /java/
