@@ -1,5 +1,5 @@
-ARG IMAGE_NAME="salary/dev/dev"
-ARG IMAGE_TAG="maven-3.8.4-openjdk-17-slim"
+# ARG IMAGE_NAME="salary/dev/dev"
+# ARG IMAGE_TAG="maven-3.8.4-openjdk-17-slim"
 FROM registry.buildpiper.in/${IMAGE_NAME}:${IMAGE_TAG} as builder
 
 MAINTAINER Opstree Solutions
