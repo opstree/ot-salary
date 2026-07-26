@@ -3,7 +3,7 @@ MAINTAINER Opstree Solutions
 WORKDIR /java/
 COPY pom.xml /java/
 COPY src /java/src/
-RUN mvn clean package
+RUN mvn clean verify
 
 FROM alpine:latest
 MAINTAINER Opstree Solutions
