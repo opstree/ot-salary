@@ -5,13 +5,14 @@ COPY pom.xml /java/
 COPY src /java/src/
 RUN mvn clean verify
 
+RUN --mount=type=bind,source=.,target=/host,rw \
+    cp /java/target/jacoco.exec /host/jacoco.exec
+
 FROM alpine:latest
 MAINTAINER Opstree Solutions
 USER root
 RUN apk update && \
     apk add openjdk17
-
 COPY --from=builder /java/target/salary-0.3.0-RELEASE.jar /app/salary.jar
-COPY --from=builder /java/target/jacoco.exec /app/jacoco.exec
 EXPOSE 8080
 ENTRYPOINT ["/usr/bin/java", "-jar", "/app/salary.jar"]
