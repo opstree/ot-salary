@@ -12,5 +12,6 @@ RUN apk update && \
     apk add openjdk17
 COPY --from=builder /java/target/salary-0.3.0-RELEASE.jar /app/salary.jar
 COPY --from=builder /java/target/jacoco.exec /bp/workspace/jacoco.exec
+COPY --from=builder /java/target/classes /bp/workspace/classes
 EXPOSE 8080
 ENTRYPOINT ["/usr/bin/java", "-jar", "/app/salary.jar"]
